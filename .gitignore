@@ -121,3 +121,6 @@ tmp/
 
 # MacOS files
 .DS_*
+
+# SQLite
+*.db
