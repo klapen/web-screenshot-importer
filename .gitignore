@@ -102,3 +102,22 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Emcas
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# test helper
+/src/tests/videos/*.txt
+
+# temporary folder
+tmp/
+
+# MacOS files
+.DS_*
