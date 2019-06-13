@@ -1,5 +1,5 @@
 from datetime import datetime
-from config import db, ma
+from src.config import db, ma
 
 class Log(db.Model):
     __tablename__ = 'log'

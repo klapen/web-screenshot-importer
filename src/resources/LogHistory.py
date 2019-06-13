@@ -1,6 +1,6 @@
 from flask_restful import Resource
 
-from models import (
+from src.models import (
     Log,
     LogSchema
 )
