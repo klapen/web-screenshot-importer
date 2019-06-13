@@ -113,9 +113,6 @@ auto-save-list
 tramp
 .\#*
 
-# test helper
-/src/tests/videos/*.txt
-
 # temporary folder
 tmp/
 
@@ -124,3 +121,6 @@ tmp/
 
 # SQLite
 *.db
+
+# Custom migration folder
+/src/migrations
