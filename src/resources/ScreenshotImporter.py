@@ -9,12 +9,26 @@ from models import (
     LogSchema
 )
 
+ALLOWED_STATUS = ['sucessfull', 'failed']
+
 def _getResponse(content):
     response = make_response(content)
     response.headers.set('Content-Type', 'image/png')
     return response
 
 class ScreenshotImporter(Resource):
+    def _saveInLog(self, url, status, image_url):
+        if status not in ALLOWED_STATUS:
+            return False
+        try:
+            item = Log(url=url, status=status, image_url=image_url)
+            db.session.add(item)
+            db.session.commit()
+            return True
+        except Exception as err:
+            print('saveInLog - Error saving on DB: %s' % err)
+            return False
+
     def importScreenshot(self, url):
         if url == '':
             return {'error': 'URL cannot be blank'}, 400
