@@ -1,5 +1,5 @@
 import unittest
-from src.resources.Maintenance import Maintenance
+from resources.Maintenance import Maintenance
 
 class TestMaintenance(unittest.TestCase):
     def test_server_ok(self):
