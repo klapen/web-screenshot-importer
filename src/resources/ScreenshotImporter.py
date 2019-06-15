@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from config import db
 from urllib.request import urlopen
-import requests
+import requests, uploader, tldextract, datetime
 from flask import make_response
 
 from models import (
@@ -39,7 +39,18 @@ class ScreenshotImporter(Resource):
             return { 'error': 'Not valid URL' }, 400
 
         res = requests.get('https://image.thum.io/get/%s' % url)
-        return _getResponse(res.content)
+        if res.status_code != 200:
+            return { 'error': 'Problems creating the screenshot' }, res.status_code
+
+        if 'thum_status_code' in res.headers and res.headers['thum_status_code'] == '200':
+            tldex = tldextract.extract(url)
+            now_text = str(datetime.datetime.now()).replace(' ','_')
+            filename = tldex.domain+'.'+tldex.suffix+'/'+tldex.subdomain+'/screenshot-'+now_text+'.png'
+            image_url = uploader.send_image(filename, res.content)
+            self._saveInLog(url, 'sucessfull', image_url)
+            return _getResponse(res.content)
+        else:
+            return { 'error': 'Could not generate screenshot' }, 204
         
     def post(self):
         parse = reqparse.RequestParser()
