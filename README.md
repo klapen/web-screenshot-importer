@@ -68,9 +68,11 @@ Capture a screenshot of a web page by providing it’s URL
     ```
     You can now access api endpoints on:
     ```
-    http://localhost:5000/api/
+    $ curl http://localhost:5000/api/
+    $ curl http://localhost:5000/api/log
+    $ curl http://localhost:5000/api/screenshot -d '{"url":"url_to_test"'
     ```
-    
+
 * #### Running Test
     On your terminal, run the test using this one simple command:
     ```
