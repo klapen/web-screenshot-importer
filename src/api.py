@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_restful import Resource, Api
 
@@ -13,4 +14,6 @@ api.add_resource(LogHistory, '/api/log')
 api.add_resource(ScreenshotImporter, '/api/screenshot')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    HOST = '127.0.0.1' if os.environ.get('EQ_HOST') == '' else os.environ.get('EQ_HOST')
+    HOST_PORT = 5000 if os.environ.get('EQ_PORT') == '' else os.environ.get('EQ_PORT')
+    app.run(debug=True, host=HOST, port=HOST_PORT)
