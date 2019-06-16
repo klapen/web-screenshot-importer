@@ -7,6 +7,9 @@ from models import (
 
 class LogHistory(Resource):
     def get(self):
-        history = Log.query.order_by(Log.timestamp).all()
-        history_schema = LogSchema(many=True)
-        return history_schema.dump(history).data
+        try:
+            history = Log.query.order_by(Log.timestamp.desc()).limit(50).all()
+            return LogSchema(many=True).dump(history).data
+        except Exception as err:
+            print('LogHistory - Error retrieving data from database: %s' % err)
+            return {'error': 'Error getting history log'}, 500
